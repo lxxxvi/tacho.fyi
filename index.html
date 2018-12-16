@@ -14,10 +14,22 @@
   </head>
   <body>
     <div>
-      Latitude: <output id="lat">0</output>
+      Latitude: <output id="latitude">0</output>
     </div>
     <div>
-      Longitude: <output id="lon">0</output>
+      Longitude: <output id="longitude">0</output>
+    </div>
+    <div>
+      Accuracy: <output id="accuracy">0</output>
+    </div>
+    <div>
+      Altitude: <output id="altitude">0</output>
+    </div>
+    <div>
+      Altitude Accuracy: <output id="altitudeAccuracy">0</output>
+    </div>
+    <div>
+      Speed: <output id="speed">0</output>
     </div>
     <script type="text/javascript">
 
@@ -27,12 +39,21 @@
       }
 
       var displayCoordinates = function(position) {
-        var lat = position.coords.latitude;
-        var lon = position.coords.longitude;
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        var accuracy = position.coords.accuracy;
+        var altitude = position.coords.altitude;
+        var altitudeAccuracy = position.coords.altitudeAccuracy;
+        var speed = position.coords.speed;
+
         // console.log(position);
 
-        document.querySelector('output#lat').innerHTML = lat || `n/a`;
-        document.querySelector('output#lon').innerHTML = lon || `n/a`;
+        document.querySelector('output#latitude').innerHTML = latitude || `n/a`;
+        document.querySelector('output#longitude').innerHTML = longitude || `n/a`;
+        document.querySelector('output#accuracy').innerHTML = accuracy || `n/a`;
+        document.querySelector('output#altitude').innerHTML = altitude || `n/a`;
+        document.querySelector('output#altitudeAccuracy').innerHTML = altitudeAccuracy || `n/a`;
+        document.querySelector('output#speed').innerHTML = speed || `n/a`;
       }
 
       // let buttonClick = function() {
