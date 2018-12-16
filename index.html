@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>tacho.fyi</title>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="theme-color" content="#fff">
+    <meta name="description" content="Simple tacho">
+    <meta name="keywords" content="tacho,tachometer,free tachometer,speed tracking,kmh,mph">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--    <link href="styles.css" rel="stylesheet">
+     <link rel="manifest" href="/manifest.webmanifest">
+    <script type="text/javascript" src="index.js"></script> -->
+  </head>
+  <body>
+    <div>
+      Latitude: <output id="lat">0</output>
+    </div>
+    <div>
+      Longitude: <output id="lon">0</output>
+    </div>
+    <script type="text/javascript">
+
+      let showError = function(error) {
+        console.log('ERROR!!');
+        console.log(error);
+      }
+
+      var displayCoordinates = function(position) {
+        var lat = position.coords.latitude;
+        var lon = position.coords.longitude;
+        // console.log(position);
+
+        document.querySelector('output#lat').innerHTML = lat || `n/a`;
+        document.querySelector('output#lon').innerHTML = lon || `n/a`;
+      }
+
+      // let buttonClick = function() {
+        // console.log('clicked');
+      if(navigator.geolocation) {
+        navigator.geolocation.watchPosition(displayCoordinates, showError);
+      } else {
+        console.log(`geolocation is not available`);
+      }
+      // }
+
+    </script>
+  </body>
+</html>
