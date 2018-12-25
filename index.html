@@ -8,30 +8,98 @@
     <meta name="description" content="Simple tacho">
     <meta name="keywords" content="tacho,tachometer,free tachometer,speed tracking,kmh,mph">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<!--    <link href="styles.css" rel="stylesheet">
-     <link rel="manifest" href="/manifest.webmanifest">
-    <script type="text/javascript" src="index.js"></script> -->
+    <style type="text/css">
+
+html, body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  color: #eee;
+  font-family: sans-serif;
+}
+
+.container {
+  background-color: #111;
+  height: 100%;
+  width: 100vw;
+  display: grid;
+  grid-template-rows: 7fr 3fr;
+}
+
+.details {
+  display: grid;
+  grid-template-rows: auto;
+}
+
+.details label {
+  color: #ccc;
+  font-size: 0.8rem;
+}
+
+.main {
+  height: 100%;
+  display: grid;
+}
+
+.speed-kmh {
+  margin: auto;
+}
+
+    </style>
   </head>
+
   <body>
-    <div>
-      Latitude: <output id="latitude">0</output>
+    <div class="container">
+
+      <div class="main">
+        <div class="speed-kmh">
+          <output id="speedKmh"></output>
+          <label for="speedKmh">km/h</label>
+        </div>
+      </div>
+
+      <div class="details">
+
+        <div class="latitude">
+          <label for="latitude">Latitude</label>
+          <output id="latitude"></output>
+        </div>
+
+        <div class="longitude">
+          <label for="longitude">Longitude</label>
+          <output id="longitude"></output>
+        </div>
+
+        <div class="accuracy">
+          <label for="accuracy">Accuracy</label>
+          <output id="accuracy"></output>
+        </div>
+
+        <div class="altitude">
+          <label for="altitude">Altitude</label>
+          <output id="altitude"></output>
+        </div>
+
+        <div class="altitude-accuracy">
+          <label for="altitudeAccuracy">Altitude Accuracy</label>
+          <output id="altitudeAccuracy"></output>
+        </div>
+
+        <div class="speed">
+          <label for="speed">Speed</label>
+          <output id="speed"></output>
+        </div>
+
+      </div>
     </div>
-    <div>
-      Longitude: <output id="longitude">0</output>
-    </div>
-    <div>
-      Accuracy: <output id="accuracy">0</output>
-    </div>
-    <div>
-      Altitude: <output id="altitude">0</output>
-    </div>
-    <div>
-      Altitude Accuracy: <output id="altitudeAccuracy">0</output>
-    </div>
-    <div>
-      Speed: <output id="speed">0</output>
-    </div>
+
     <script type="text/javascript">
+      const METERS_TO_KMH_MULTIPLIER = 3.6;
 
       let showError = function(error) {
         console.log('ERROR!!');
@@ -45,6 +113,7 @@
         var altitude = position.coords.altitude;
         var altitudeAccuracy = position.coords.altitudeAccuracy;
         var speed = position.coords.speed;
+        var speedKmh = toKmh(speed);
 
         // console.log(position);
 
@@ -54,6 +123,13 @@
         document.querySelector('output#altitude').innerHTML = altitude || `n/a`;
         document.querySelector('output#altitudeAccuracy').innerHTML = altitudeAccuracy || `n/a`;
         document.querySelector('output#speed').innerHTML = speed || `n/a`;
+        document.querySelector('output#speedKmh').innerHTML = speedKmh || `n/a`;
+      }
+
+      var toKmh = function(speed) {
+        if (speed !== null) {
+          speedKmh = speed * METERS_TO_KMH_MULTIPLIER;
+        }
       }
 
       // let buttonClick = function() {
